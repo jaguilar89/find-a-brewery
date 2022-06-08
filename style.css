@@ -1,0 +1,21 @@
+html, body {
+    min-height: 100%;
+    background: #fff;
+    color: #000;
+}
+
+header {
+    padding-bottom: 3rem;
+}
+#main {
+    display: flex;
+}
+
+div.brewcard {
+    border: 5px solid black;
+}
+
+div.brewcard .brewname {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
