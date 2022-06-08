@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>work in progress</title>
+</head>
+<body>
+    <h1>Find a Brewery</h1>
+
+    <form id="search-form" action="" method="GET">
+    <label for="site-search">Search for breweries</label>
+    <input type="search" id="search_bar" placeholder="" name="q">
+    <select id="search-categories" name="categories">
+        <option value="">Select search category</option>
+        <option value="city">City</option>
+        <option value="state">State</option>
+        <option value="zipcode">ZIP Code</option>
+        <option value="term">Search Term</option>
+    </select>
+    <input type="submit" id="search-button" value="Search">
+    </form>
+
+    <section id="main">
+        <div id="results">
+
+        </div>
+    </section>
+    
+    <script src="./index.js"></script>
+</body>
+</html>
