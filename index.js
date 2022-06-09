@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('#search-form');
     form.addEventListener('submit', performSearch);
@@ -19,7 +18,7 @@ function performSearch(event) {
         case 'zipcode':
             endpoint = `https://api.openbrewerydb.org/breweries?by_postal=${searchInput.value}&per_page=all`;
              break;
-        case 'term':
+        case 'name':
             endpoint = `https://api.openbrewerydb.org/breweries/?by_name=${searchInput.value}&per_page=all`;
     }
 
@@ -35,6 +34,10 @@ function performSearch(event) {
 function createBreweryCard(result) {
     const resultsDiv = document.querySelector('#results');
     const childDiv = document.createElement('div');
+    const phoneFormat = function(input) {
+        if (input < 10) return null
+        return input.slice(0,3) + '-' + input.slice(3,6) + '-' + input.slice(-4);
+    };
     childDiv.setAttribute('class', 'brewcard')
     //Name
     const name = document.createElement('p');
@@ -45,7 +48,7 @@ function createBreweryCard(result) {
     address.textContent = `Address: ${result.street || 'N/A'} ${result.city}, ${result.state} ${result.postal_code}`
     //Phone
     const phone = document.createElement('p');
-    phone.textContent = `Phone: ${result.phone || 'N/A'}`
+    phone.textContent = `Phone: ${phoneFormat(result.phone )|| 'N/A'}`
     //Website
     const website = document.createElement('p')
     website.textContent = `Website: ${result.website_url || 'N/A'}`
