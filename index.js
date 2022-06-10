@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('#search-form');
+    const locationSearch = document.querySelector('#search-location-button');
+    locationSearch.addEventListener('click', searchCurrentLocation);
     form.addEventListener('submit', performSearch);
 })
 
@@ -47,13 +49,17 @@ function createCard(result) {
         name.textContent = `${result.name}`;
         //Address
         const address = document.createElement('p');
-        address.textContent = `Address: ${result.street || 'N/A'} ${result.city}, ${result.state} ${result.postal_code}`
+        address.textContent = `Address: ${result.street || 'N/A'} - ${result.city}, ${result.state} ${result.postal_code}`
         //Phone
         const phone = document.createElement('p');
         phone.textContent = `Phone: ${phoneFormat(result.phone) || 'N/A'}`
         //Website
-        const website = document.createElement('p')
-        website.textContent = `Website: ${result.website_url || 'N/A'}`
+        const website = document.createElement('a')
+        website.setAttribute('href', `${result.website_url}`)
+        website.setAttribute('target', '_blank');
+        website.textContent = 'Website'
+        const lineBreak = document.createElement('br');
+        website.append(lineBreak)
         //Google Maps
         const map = document.createElement('a');
         if (result.latitude && result.longitude) {
@@ -65,4 +71,30 @@ function createCard(result) {
         childDiv.append(name, address, phone, website, map)
         resultsDiv.appendChild(childDiv);
     }
+};
+
+function searchCurrentLocation() {
+    function success(position) {
+        const latitude  = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        fetch(`https://api.openbrewerydb.org/breweries?by_dist=${latitude},${longitude}&per_page=all`)
+            .then(res => res.json())
+            .then(data => {
+                document.querySelector('#results').innerHTML = '';
+                data.forEach(result => createCard(result))
+            })
+      };
+    
+      function error() {
+        alert('Unable to retrieve your location');
+      };
+    
+      if(!navigator.geolocation) {
+        alert('Geolocation is not supported by your browser.')
+      } else {
+        const text = 'loading...'
+        document.querySelector('#results').appendChild(document.createTextNode(text));
+        navigator.geolocation.getCurrentPosition(success, error);
+      };
 };
