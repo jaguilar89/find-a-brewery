@@ -22,18 +22,19 @@ function performSearch(event) {
             endpoint = `https://api.openbrewerydb.org/breweries/?by_name=${searchInput.value}&per_page=all`;
     }
 
-    fetch(endpoint)
+    fetch(encodeURI(endpoint))
         .then(res => res.json())
         .then(data => {
             document.querySelector('#results').innerHTML = '';
-            data.forEach(result => createBreweryCard(result))
+            data.forEach(result => createCard(result))
         })
     document.querySelector('#search-form').reset();
 };
 
-function createBreweryCard(result) {
+function createCard(result) {
     const resultsDiv = document.querySelector('#results');
     const childDiv = document.createElement('div');
+    //Format 10 digit phone numbers to include dashes
     const phoneFormat = function(input) {
         if (input < 10) return null
         return input.slice(0,3) + '-' + input.slice(3,6) + '-' + input.slice(-4);
@@ -52,7 +53,13 @@ function createBreweryCard(result) {
     //Website
     const website = document.createElement('p')
     website.textContent = `Website: ${result.website_url || 'N/A'}`
-
-    childDiv.append(name, address, phone, website)
+    //Google Maps
+    const map = document.createElement('a');
+    if (result.latitude && result.longitude) {
+        map.setAttribute('href', `https://www.google.com/maps/place/${result.latitude},${result.longitude}`)
+        map.textContent = 'See on Google Maps'
+    };
+    
+    childDiv.append(name, address, phone, website, map)
     resultsDiv.appendChild(childDiv);
 };
