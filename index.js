@@ -57,7 +57,8 @@ function createCard(result) {
     const map = document.createElement('a');
     if (result.latitude && result.longitude) {
         map.setAttribute('href', `https://www.google.com/maps/place/${result.latitude},${result.longitude}`)
-        map.textContent = 'See on Google Maps'
+        map.setAttribute('target', '_blank');
+        map.textContent = 'See location on Google Maps'
     };
     
     childDiv.append(name, address, phone, website, map)
