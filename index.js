@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('#search-form');
     const locationSearch = document.querySelector('#search-location-button');
-    locationSearch.addEventListener('click', searchCurrentLocation);
     form.addEventListener('submit', performSearch);
+    locationSearch.addEventListener('click', searchCurrentLocation);
 })
 
 function performSearch(event) {
@@ -58,8 +58,7 @@ function createCard(result) {
         website.setAttribute('href', `${result.website_url}`)
         website.setAttribute('target', '_blank');
         website.textContent = 'Website'
-        const lineBreak = document.createElement('br');
-        website.append(lineBreak)
+        website.append(document.createElement('br'))
         //Google Maps
         const map = document.createElement('a');
         if (result.latitude && result.longitude) {
@@ -74,6 +73,14 @@ function createCard(result) {
 };
 
 function searchCurrentLocation() {
+    //Check if users browser has access to Geolocation API
+    if(!navigator.geolocation) {
+      alert('Geolocation is not supported by your browser.')
+    } else {
+      const text = 'loading...'
+      document.querySelector('#results').appendChild(document.createTextNode(text));
+      navigator.geolocation.getCurrentPosition(success, error);
+    };
     function success(position) {
         const latitude  = position.coords.latitude;
         const longitude = position.coords.longitude;
@@ -88,13 +95,5 @@ function searchCurrentLocation() {
     
       function error() {
         alert('Unable to retrieve your location');
-      };
-    
-      if(!navigator.geolocation) {
-        alert('Geolocation is not supported by your browser.')
-      } else {
-        const text = 'loading...'
-        document.querySelector('#results').appendChild(document.createTextNode(text));
-        navigator.geolocation.getCurrentPosition(success, error);
       };
 };
