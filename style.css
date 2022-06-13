@@ -1,19 +1,29 @@
 html, body {
     min-height: 100%;
-    background: #FFD200;
     color: #000;
+    background: #ffd200;
 }
 
 header {
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
     padding-bottom: 3rem;
     text-align: center;
 }
-#main {
-    display: flex;
-}
 
+#results {
+    margin-top: 183px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 300px;
+    gap: 5px;
+}
 div.brewcard {
     border: 5px solid black;
+    border-radius: 25px;
 }
 
 div.brewcard .brewname {
