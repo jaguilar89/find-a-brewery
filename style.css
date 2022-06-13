@@ -12,6 +12,7 @@ header {
     left: 0;
     padding-bottom: 3rem;
     text-align: center;
+    background: #ffd200;
 }
 
 #results {
@@ -19,7 +20,7 @@ header {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 300px;
-    gap: 5px;
+    gap: 10px;
 }
 div.brewcard {
     border: 5px solid black;
