@@ -37,6 +37,7 @@ function createCard(result) {
     if (result.brewery_type !== "closed") {
         const resultsDiv = document.querySelector('#results');
         const childDiv = document.createElement('div');
+        childDiv.style.textAlign = 'center'
         childDiv.setAttribute('class', 'brewcard')
         //Format 10 digit phone numbers to include dashes
         const phoneFormat = function (input) {
@@ -66,7 +67,7 @@ function createCard(result) {
             map.setAttribute('target', '_blank');
             map.textContent = 'See location on Google Maps'
         };
-
+        
         childDiv.append(name, address, phone, website, map)
         resultsDiv.appendChild(childDiv);
     }
@@ -74,7 +75,7 @@ function createCard(result) {
 
 function searchCurrentLocation() {
     //Check if users browser has access to Geolocation API
-    if(!navigator.geolocation) {
+    if (!navigator.geolocation) {
       alert('Geolocation is not supported by your browser.')
     } else {
       const text = 'loading...'
