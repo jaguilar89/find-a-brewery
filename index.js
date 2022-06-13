@@ -25,11 +25,15 @@ function performSearch(event) {
     }
 
     fetch(encodeURI(endpoint))
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) throw new Error(res.statusText)
+            return res.json();
+        })
         .then(data => {
             document.querySelector('#results').innerHTML = '';
             data.forEach(result => createCard(result))
         })
+        .catch(error => console.log(error))
     document.querySelector('#search-form').reset();
 };
 
@@ -41,8 +45,9 @@ function createCard(result) {
         childDiv.setAttribute('class', 'brewcard')
         //Format 10 digit phone numbers to include dashes
         const phoneFormat = function (input) {
-            if (input < 10) return null
+           if (result.country === 'United States') {
             return input.slice(0, 3) + '-' + input.slice(3, 6) + '-' + input.slice(-4);
+           }
         };
         //Name
         const name = document.createElement('p');
