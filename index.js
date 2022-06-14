@@ -84,8 +84,10 @@ function searchCurrentLocation() {
     if (!navigator.geolocation) {
       alert('Geolocation is not supported by your browser.')
     } else {
-      const text = 'Searching...'
-      document.querySelector('#results').appendChild(document.createTextNode(text));
+      document.querySelector('#results').innerHTML = ''
+      const text = document.createElement('h1')
+      text.textContent = 'Searching...'
+      document.querySelector('#results').appendChild(text);
       navigator.geolocation.getCurrentPosition(success, error);
     };
     function success(position) {
@@ -121,8 +123,9 @@ function getDistanceFromCoordsInMiles(lat1,lon1,lat2,lon2) {
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
         const d = R * c; // Distance in km
         return d * 0.62137; //km to mi = dist in km * 0.62137
+
+    function deg2rad(deg) {
+        return deg * (Math.PI/180)
+    }
 }
        
-function deg2rad(deg) {
-    return deg * (Math.PI/180)
-}
