@@ -28,6 +28,11 @@ h1#heading {
     grid-auto-rows: 300px;
     gap: 10px;
 }
+
+#results h1 {
+    margin: 0 auto;
+}
+
 div.brewcard {
     border: 5px solid black;
     border-radius: 25px;
