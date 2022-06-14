@@ -1,7 +1,8 @@
-html, body {
-    min-height: 100%;
+body {
+    min-height: 100vh;
     color: #000;
     background: #ffd200;
+    font-family: 'Oswald', sans-serif;
 }
 
 header {
@@ -15,8 +16,12 @@ header {
     background: #ffd200;
 }
 
+h1#heading {
+    font-size: 3.125rem;
+}
+
 #results {
-    margin-top: 183px;
+    margin-top: 255px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 300px;
