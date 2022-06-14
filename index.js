@@ -24,13 +24,13 @@ function performSearch(event) {
             endpoint = `https://api.openbrewerydb.org/breweries/?by_name=${searchInput.value}&per_page=all`;
     }
 
-    fetch(encodeURI(endpoint))
+    fetch(encodeURI(endpoint)) //Encode endpoint URL in case of spaces in params
         .then(res => {
             if (!res.ok) throw new Error(res.statusText)
             return res.json();
         })
         .then(data => {
-            document.querySelector('#results').innerHTML = '';
+            document.querySelector('#results').innerHTML = ''; //Wipe previous search results on page when performing a new search
             data.forEach(item => createCard(item))
         })
         .catch(error => console.log(error))
@@ -38,7 +38,7 @@ function performSearch(event) {
 };
 
 function createCard(result) {
-    if (result.brewery_type !== "closed") {
+    if (result.brewery_type !== "closed") { //Only create cards for brewery locations that are currently still in business
         const resultsDiv = document.querySelector('#results');
         const childDiv = document.createElement('div');
         childDiv.style.textAlign = 'center'
@@ -72,8 +72,10 @@ function createCard(result) {
             map.setAttribute('target', '_blank');
             map.textContent = 'See location on Google Maps'
         };
-        const dist = document.createElement('div')
+        
+        const dist = document.createElement('div') //Create space on card for showing distance info when searching by current location
         dist.setAttribute('class', 'dist')
+
         childDiv.append(name, address, phone, website, map, dist)
         resultsDiv.appendChild(childDiv);
     }
@@ -112,20 +114,21 @@ function searchCurrentLocation() {
     };
 };
 
+//Haversine Formula for calculating distance between 2 geographic coordinates.
 function getDistanceFromCoordsInMiles(lat1,lon1,lat2,lon2) {
     const R = 6371; // Radius of the earth in km
-    const dLat = deg2rad(lat2-lat1);  // deg2rad below
-    const dLon = deg2rad(lon2-lon1); 
+    const dLat = deg2rad(lat2 - lat1);  // deg2rad below
+    const dLon = deg2rad(lon2 - lon1); 
     const a = 
-        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-        Math.sin(dLon/2) * Math.sin(dLon/2)
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        Math.sin(dLon / 2) * Math.sin(dLon / 2)
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
         const d = R * c; // Distance in km
         return d * 0.62137; //km to mi = dist in km * 0.62137
 
     function deg2rad(deg) {
-        return deg * (Math.PI/180)
+        return deg * (Math.PI / 180)
     }
-}
+};
        
