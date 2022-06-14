@@ -84,23 +84,23 @@ function searchCurrentLocation() {
     if (!navigator.geolocation) {
       alert('Geolocation is not supported by your browser.')
     } else {
-      const text = 'loading...'
+      const text = 'Searching...'
       document.querySelector('#results').appendChild(document.createTextNode(text));
       navigator.geolocation.getCurrentPosition(success, error);
     };
     function success(position) {
-        const latitude  = position.coords.latitude;
-        const longitude = position.coords.longitude;
+        const myLatitude  = position.coords.latitude;
+        const myLongitude = position.coords.longitude;
 
-        fetch(`https://api.openbrewerydb.org/breweries?by_dist=${latitude},${longitude}&per_page=all`)
+        fetch(`https://api.openbrewerydb.org/breweries?by_dist=${myLatitude},${myLongitude}&per_page=all`)
             .then(res => res.json())
             .then(data => {
                 document.querySelector('#results').innerHTML = '';
                 data.forEach((result, index) => {
                     createCard(result)
-                    const dist = document.querySelectorAll('.dist')[index]
-                    const distance = getDistanceFromCoordsInMiles(latitude,longitude, result.latitude, result.longitude)
-                    dist.textContent = `Distance: ${distance.toFixed(2)} mi`
+                    const div = document.querySelectorAll('.dist')[index]
+                    const distance = getDistanceFromCoordsInMiles(myLatitude, myLongitude, result.latitude, result.longitude)
+                    div.textContent = `Distance: ${distance.toFixed(2)} mi`
                 })
             })
       };
