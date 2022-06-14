@@ -31,7 +31,7 @@ function performSearch(event) {
         })
         .then(data => {
             document.querySelector('#results').innerHTML = '';
-            data.forEach(result => createCard(result))
+            data.forEach(item => createCard(item))
         })
         .catch(error => console.log(error))
     document.querySelector('#search-form').reset();
@@ -45,7 +45,7 @@ function createCard(result) {
         childDiv.setAttribute('class', 'brewcard')
         //Format 10 digit phone numbers to include dashes
         const phoneFormat = function (input) {
-           if (result.country === 'United States') {
+           if (result.phone && result.country === 'United States') {
             return input.slice(0, 3) + '-' + input.slice(3, 6) + '-' + input.slice(-4);
            }
         };
@@ -72,8 +72,9 @@ function createCard(result) {
             map.setAttribute('target', '_blank');
             map.textContent = 'See location on Google Maps'
         };
-        
-        childDiv.append(name, address, phone, website, map)
+        const dist = document.createElement('div')
+        dist.setAttribute('class', 'dist')
+        childDiv.append(name, address, phone, website, map, dist)
         resultsDiv.appendChild(childDiv);
     }
 };
@@ -95,11 +96,33 @@ function searchCurrentLocation() {
             .then(res => res.json())
             .then(data => {
                 document.querySelector('#results').innerHTML = '';
-                data.forEach(result => createCard(result))
+                data.forEach((result, index) => {
+                    createCard(result)
+                    const dist = document.querySelectorAll('.dist')[index]
+                    const distance = getDistanceFromCoordsInMiles(latitude,longitude, result.latitude, result.longitude)
+                    dist.textContent = `Distance: ${distance.toFixed(2)} mi`
+                })
             })
       };
     
-      function error() {
+    function error() {
         alert('Unable to retrieve your location');
-      };
+    };
 };
+
+function getDistanceFromCoordsInMiles(lat1,lon1,lat2,lon2) {
+    const R = 6371; // Radius of the earth in km
+    const dLat = deg2rad(lat2-lat1);  // deg2rad below
+    const dLon = deg2rad(lon2-lon1); 
+    const a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2)
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        const d = R * c; // Distance in km
+        return d * 0.62137; //km to mi = dist in km * 0.62137
+}
+       
+function deg2rad(deg) {
+    return deg * (Math.PI/180)
+}
