@@ -1,9 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('#search-form');
-    const locationSearch = document.querySelector('#search-location-button');
-    form.addEventListener('submit', performSearch);
-    locationSearch.addEventListener('click', searchCurrentLocation);
-})
+const form = document.querySelector('#search-form');
+const locationSearch = document.querySelector('#search-location-button');
+form.addEventListener('submit', performSearch);
+locationSearch.addEventListener('click', searchCurrentLocation);
 
 function performSearch(event) {
     event.preventDefault();
@@ -79,6 +77,8 @@ function createCard(result) {
         const dist = document.createElement('div') //Create space on card for showing distance info when searching by current location
         dist.setAttribute('class', 'dist')
 
+        childDiv.addEventListener('mouseenter', event => event.target.style.boxShadow = '0px 2px 7px 7px rgba(0,0,0,0.5)');
+        childDiv.addEventListener('mouseleave', event => event.target.style.boxShadow = '');
         childDiv.append(name, type, address, phone, website, map, dist)
         resultsDiv.appendChild(childDiv);
     }
@@ -110,28 +110,28 @@ function searchCurrentLocation() {
                     div.textContent = `Distance: ${distance.toFixed(2)} mi`
                 })
             })
-      };
+    };
     
     function error() {
         alert('Unable to retrieve your location');
     };
-};
-
-//Haversine Formula for calculating distance between 2 geographic coordinates.
-function getDistanceFromCoordsInMiles(lat1,lon1,lat2,lon2) {
-    const R = 6371; // Radius of the earth in km
-    const dLat = deg2rad(lat2 - lat1);  // deg2rad below
-    const dLon = deg2rad(lon2 - lon1); 
-    const a = 
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-        Math.sin(dLon / 2) * Math.sin(dLon / 2)
+    //Haversine Formula for calculating distance between 2 geographic coordinates.
+    function getDistanceFromCoordsInMiles(lat1,lon1,lat2,lon2) {
+        const R = 6371; // Radius of the earth in km
+        const dLat = deg2rad(lat2 - lat1);  // deg2rad below
+        const dLon = deg2rad(lon2 - lon1); 
+        const a = 
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+            Math.sin(dLon / 2) * Math.sin(dLon / 2)
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
         const d = R * c; // Distance in km
+        
         return d * 0.62137; //km to mi = dist in km * 0.62137
 
     function deg2rad(deg) {
         return deg * (Math.PI / 180)
     }
+    }
 };
-       
+
