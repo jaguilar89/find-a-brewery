@@ -53,6 +53,9 @@ function createCard(result) {
         const name = document.createElement('p');
         name.setAttribute('class', 'brewname');
         name.textContent = `${result.name}`;
+        //Brewery type
+        const type = document.createElement('p');
+        type.textContent = `Brewery type: ${result.brewery_type || 'N/A'}`
         //Address
         const address = document.createElement('p');
         address.textContent = `Address: ${result.street || 'N/A'} - ${result.city}, ${result.state} ${result.postal_code}`
@@ -76,7 +79,7 @@ function createCard(result) {
         const dist = document.createElement('div') //Create space on card for showing distance info when searching by current location
         dist.setAttribute('class', 'dist')
 
-        childDiv.append(name, address, phone, website, map, dist)
+        childDiv.append(name, type, address, phone, website, map, dist)
         resultsDiv.appendChild(childDiv);
     }
 };
