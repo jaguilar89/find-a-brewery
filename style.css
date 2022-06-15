@@ -25,6 +25,10 @@ h1#heading {
     font-size: 3.125rem;
 }
 
+#main {
+    position: relative;
+}
+
 #results {
     margin-top: 255px;
     display: grid;
