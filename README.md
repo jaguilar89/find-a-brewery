@@ -9,13 +9,21 @@
 
 ## Usage
 Search for breweries based on the search criteria of your choosing (City, State, ZIP Code, or a Name)
-![](https://i.imgur.com/N31z61H.mp4)
+
+
+
+https://user-images.githubusercontent.com/78065152/173740308-27d6d82c-bc23-4667-aa65-fc5e48cef242.mp4
+
 
 ### or
 
 Search for breweries closest to you (you must give your browser permission to access your location)
 
-![](https://i.imgur.com/rT8Yhr5.mp4)
+
+
+https://user-images.githubusercontent.com/78065152/173740461-c6b0a8b0-f727-44cc-bd48-4d4a04925a49.mp4
+
+
 
 ## Credits
 This application is powered by [Open Brewery DB](https://www.openbrewerydb.org/), a free and open-source API with public information on breweries nationwide.
