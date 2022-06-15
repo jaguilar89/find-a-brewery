@@ -18,6 +18,7 @@ https://user-images.githubusercontent.com/78065152/173740308-27d6d82c-bc23-4667-
 ### or
 
 Search for breweries closest to you (you must give your browser permission to access your location)
+The distance to each brewery is displayed at the bottom of the card.
 
 
 
