@@ -8,6 +8,9 @@
 - JavaScript
 - HTML
 - CSS
+- 
+## Requirements
+- Latest version of your preferred browser.
 
 ## Usage
 Search for breweries based on the search criteria of your choosing (City, State, ZIP Code, or a Name)
