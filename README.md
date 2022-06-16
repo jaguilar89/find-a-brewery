@@ -2,7 +2,7 @@
 
 **Find a Brewery** is front-end, single-page application powered by [Open Brewery DB](https://www.openbrewerydb.org/) that I built as my Phase 1 project for Flatiron School. You can pull up a list of breweries, in alphabetical order, based on one of several search criteria, or you can simply pull up a list of the breweries closest to you (requires location permissions for your browser).
 
-[](https://jaguilar89.github.io/find-a-brewery/)
+[https://jaguilar89.github.io/find-a-brewery/](https://jaguilar89.github.io/find-a-brewery/)
 
 ## Built With
 - JavaScript
