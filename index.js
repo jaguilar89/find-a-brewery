@@ -10,16 +10,16 @@ function performSearch(event) {
     const dropdown = document.querySelector('#search-categories');
     switch (dropdown.value) {
         case 'city':
-            endpoint = `https://api.openbrewerydb.org/breweries?by_city=${searchInput.value}&per_page=all`;
+            endpoint = `https://api.openbrewerydb.org/breweries?by_city=${searchInput.value}&per_page=50`;
             break;
         case 'state':
-            endpoint = `https://api.openbrewerydb.org/breweries?by_state=${searchInput.value}&per_page=all`;
+            endpoint = `https://api.openbrewerydb.org/breweries?by_state=${searchInput.value}&per_page=50`;
             break;
         case 'zipcode':
-            endpoint = `https://api.openbrewerydb.org/breweries?by_postal=${searchInput.value}&per_page=all`;
+            endpoint = `https://api.openbrewerydb.org/breweries?by_postal=${searchInput.value}&per_page=50`;
             break;
         case 'name':
-            endpoint = `https://api.openbrewerydb.org/breweries/?by_name=${searchInput.value}&per_page=all`;
+            endpoint = `https://api.openbrewerydb.org/breweries/?by_name=${searchInput.value}&per_page=50`;
     }
 
     fetch(encodeURI(endpoint)) //Encode endpoint URL in case of spaces in params
@@ -99,7 +99,7 @@ function searchCurrentLocation() {
         const myLatitude  = position.coords.latitude;
         const myLongitude = position.coords.longitude;
 
-        fetch(`https://api.openbrewerydb.org/breweries?by_dist=${myLatitude},${myLongitude}&per_page=all`)
+        fetch(`https://api.openbrewerydb.org/breweries?by_dist=${myLatitude},${myLongitude}&per_page=50`)
             .then(res => res.json())
             .then(data => {
                 document.querySelector('#results').innerHTML = '';
