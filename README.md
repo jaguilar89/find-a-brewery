@@ -8,7 +8,7 @@
 - JavaScript
 - HTML
 - CSS
-- 
+
 ## Requirements
 - Latest version of your preferred browser.
 
